@@ -29,4 +29,7 @@ dependencies {
 
     // Addding osm
     implementation 'org.osmdroid:osmdroid-android:6.0.2'
+
+    // Smart Location Library
+    implementation 'io.nlopez.smartlocation:library:3.3.3'
 }
