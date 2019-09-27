@@ -3,8 +3,11 @@ package com.example.greenwave;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.View;
+import android.widget.ImageView;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -15,6 +18,8 @@ import org.osmdroid.views.overlay.Marker;
 
 public class MainActivity extends AppCompatActivity {
     MapView mapView = null;
+    AnimationDrawable upArrowAnimation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,5 +48,17 @@ public class MainActivity extends AppCompatActivity {
         IMapController mapController = mapView.getController();
         mapController.setCenter(startPoint);
         mapController.setZoom(15.5);
+
+        ImageView upArrowImage = (ImageView) findViewById(R.id.upArrows);
+        upArrowImage.setBackgroundResource(R.drawable.animated_arrows);
+        upArrowAnimation = (AnimationDrawable) upArrowImage.getBackground();
+
+        upArrowImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                upArrowAnimation.start();
+            }
+        });
+
     }
 }
