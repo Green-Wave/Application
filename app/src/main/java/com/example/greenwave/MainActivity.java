@@ -2,6 +2,7 @@ package com.example.greenwave;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.greenwave.userData;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getLocation() {
+        final userData biker = new userData(null,null,51.953323, 7.641664,null);
         new AppExecutors().mainThread().execute(new Runnable() {
             @Override
             public void run() {
@@ -145,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
                                 mapView.getOverlays().add(userMarker);
                                 userMarker.setTitle("You are here!");
                                 mapView.invalidate();
+                                biker.setLocation(startPoint.getLatitude(),startPoint.getLongitude(), System.currentTimeMillis());
                             }
                         });
             }
