@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     MapView mapView = null;
     public Marker userMarker;
     public GeoPoint startPoint;
+    public IMapController mapController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,17 +57,21 @@ public class MainActivity extends AppCompatActivity {
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setMultiTouchControls(true);
 
-        //user location
         userMarker = new Marker(mapView);
-        userMarker.setIcon(mapView.getContext().getResources().getDrawable(R.drawable.bike));
-        startPoint = new GeoPoint(51.953384, 7.642753);
-        userMarker.setPosition(startPoint);
-        mapView.getOverlays().add(userMarker);
-        userMarker.setTitle("You are here!");
+        userMarker.setIcon(mapView.getContext().getResources().getDrawable(R.drawable.you_are_here));
+
+
+        //user location
+        Marker bikeMarker = new Marker(mapView);
+        bikeMarker.setIcon(mapView.getContext().getResources().getDrawable(R.drawable.bike));
+        GeoPoint bikePoint = new GeoPoint(51.953384, 7.642753);
+        bikeMarker.setPosition(bikePoint);
+        mapView.getOverlays().add(bikeMarker);
+        bikeMarker.setTitle("You are here!");
 
         //center position and zoom
-        IMapController mapController = mapView.getController();
-        mapController.setCenter(startPoint);
+        mapController = mapView.getController();
+        mapController.setCenter(bikePoint);
         mapController.setZoom(15.5);
 
         //trafficLight location
@@ -144,6 +149,8 @@ public class MainActivity extends AppCompatActivity {
                                 userMarker.setPosition(startPoint);
                                 mapView.getOverlays().add(userMarker);
                                 userMarker.setTitle("You are here!");
+                                mapController.setCenter(startPoint);
+                                mapController.setZoom(15.5);
                                 mapView.invalidate();
                             }
                         });
