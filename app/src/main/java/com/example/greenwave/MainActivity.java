@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.drawable.AnimationDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -51,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
     public IMapController mapController;
     public int sekunden = 15;
     public long sumSeconds = 0;
-
+    private boolean speed_up =true;
+    AnimationDrawable Animation;
     public boolean trafficlightGreen;
 
     Handler handler = new Handler();
@@ -153,6 +156,17 @@ public class MainActivity extends AppCompatActivity {
         mapView.getOverlays().add(roadOverlay);
         mapView.invalidate();
 
+        ImageView arrowsImage= null;
+        if(speed_up){
+            arrowsImage = (ImageView) findViewById(R.id.imageView);
+            arrowsImage.setBackgroundResource(R.drawable.animation);
+        }else{
+            arrowsImage = (ImageView) findViewById(R.id.imageView_down);
+            arrowsImage.setBackgroundResource(R.drawable.animation_down);
+        }
+
+        Animation = (AnimationDrawable) arrowsImage.getBackground();
+        Animation.start();
 
         //update traffic light status
         //updateTraffic();
