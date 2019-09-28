@@ -45,7 +45,7 @@ import util.AppExecutors;
 
 public class MainActivity extends AppCompatActivity {
     MapView mapView = null;
-    TextView timer_tv;
+    TextView timer_tv, spped_tv;
     //ImageView trafficLight_iv;
     public Marker userMarker;
     public Marker trafficLightMarker;
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     public double tlLon = 7.636930346488953;
 
     public boolean trafficlightGreen;
+    public double speed;
 
     Handler handler = new Handler();
     Runnable runnable;
@@ -87,8 +88,10 @@ public class MainActivity extends AppCompatActivity {
         mapView.setTilesScaledToDpi(true);
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setMultiTouchControls(true);
+        mapView.setMapOrientation(45.0f);
 
         timer_tv = findViewById(R.id.tv_timer);
+        spped_tv = findViewById(R.id.tv_speed);
         //trafficLight_iv = findViewById(R.id.iv_trafficLight);
 
         userMarker = new Marker(mapView);
@@ -225,6 +228,8 @@ public class MainActivity extends AppCompatActivity {
                         bikeMarker.setPosition(new GeoPoint(bikeLat-mRouteOneMeter*i,bikeLon-difLonOneMeter*i));
                         biker.setLocation(bikeLat-mRouteOneMeter*i,bikeLon-difLonOneMeter*i, System.currentTimeMillis());
                         System.out.println(Double.toString(biker.getSpeed()));
+                        //spped_tv.setText(Double.toString(biker.getSpeed()));
+                        speed = biker.getSpeed();
                         i=i+5;
                     }
                 } catch (InterruptedException e) {
@@ -247,6 +252,9 @@ public class MainActivity extends AppCompatActivity {
             int timeDown = 5;
             public void onTick(long millisUntilFinished) {
                 timer_tv.setText("00:0"+String.valueOf(timeDown--));
+                //spped_tv.setText(Double.toString(speed*3.6).substring(0,3)+" km/h");
+                spped_tv.setText(Double.toString(speed*3.6));
+
                 Log.d("Mact", "timer3");
             }
 
