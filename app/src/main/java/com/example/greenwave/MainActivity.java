@@ -14,6 +14,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setMultiTouchControls(true);
         mapView.setMapOrientation(45.0f);
+        mapView.setBuiltInZoomControls(false);
 
         timer_tv = findViewById(R.id.tv_timer);
         spped_tv = findViewById(R.id.tv_speed);
@@ -128,14 +130,8 @@ public class MainActivity extends AppCompatActivity {
         mapView.getOverlays().add(destinationMarker);
         destinationMarker.setTitle("Destination");
 
-
         //7.637563347816466
         // 51.95056384502477
-
-
-
-
-
 
         ArrayList<GeoPoint> mRouteHigh = new ArrayList<>();
         mRouteHigh.add(new GeoPoint(51.950138981967264, 7.638094425201416));//
@@ -193,19 +189,17 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed( runnable = new Runnable() {
             public void run() {
                 if(trafficlightGreen) {
-                    trafficLightMarker.setIcon(mapView.getContext().getResources().getDrawable(R.drawable.a_rot));
+                    //trafficLightMarker.setIcon(mapView.getContext().getResources().getDrawable(R.drawable.a_rot));
                     //trafficLight_iv.setImageResource(R.drawable.a_rot);
-                    trafficlightGreen = false;
+                    //trafficlightGreen = false;
                     mapView.invalidate();
-                    timer();
                 }
 
                 else {
-                    trafficLightMarker.setIcon(mapView.getContext().getResources().getDrawable(R.drawable.a_green));
+                    //trafficLightMarker.setIcon(mapView.getContext().getResources().getDrawable(R.drawable.a_green));
                     //trafficLight_iv.setImageResource(R.drawable.a_green);
-                    trafficlightGreen = true;
+                    //trafficlightGreen = true;
                     mapView.invalidate();
-                    timer();
                 }
                 handler.postDelayed(runnable, delay);
             }
@@ -219,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
             double j = 5;
             int k = 1;
             double[] l ={0.2,0.3,0.4};
+            int tlRunner = 0;
             int lRunner = 0;
             @Override
             public void run() {
@@ -232,7 +227,6 @@ public class MainActivity extends AppCompatActivity {
                         bikeMarker.setPosition(new GeoPoint(bikeLat-mRouteOneMeter*i,bikeLon-difLonOneMeter*i));
                         biker.setLocation(bikeLat-mRouteOneMeter*i,bikeLon-difLonOneMeter*i, System.currentTimeMillis());
                         System.out.println(Double.toString(biker.getSpeed()));
-                        //spped_tv.setText(Double.toString(biker.getSpeed()));
                         speed = biker.getSpeed();
                         i = i+j;
                         j = j - k *l[lRunner];
@@ -246,7 +240,11 @@ public class MainActivity extends AppCompatActivity {
                         }else{
                             lRunner++;
                         }
-                        System.out.println(i);
+                        tlRunner++;
+                        if(tlRunner == 20){
+                            trafficLightMarker.setIcon(mapView.getContext().getResources().getDrawable(R.drawable.a_green));
+                            trafficlightGreen = true;
+                        }
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -264,10 +262,15 @@ public class MainActivity extends AppCompatActivity {
     public void timer(){
         Log.d("Mact", "timer2");
 
-        new CountDownTimer(5*1000, 1000) {
-            int timeDown = 5;
+        new CountDownTimer(20*1000, 1000) {
+            int timeDown = 20;
             public void onTick(long millisUntilFinished) {
-                timer_tv.setText("00:0"+String.valueOf(timeDown--));
+                if(timeDown >= 10 ){
+                    timer_tv.setText("00:"+String.valueOf(timeDown--));
+                }else{
+                    timer_tv.setText("00:0"+String.valueOf(timeDown--));
+                }
+
                 //spped_tv.setText(Double.toString(speed*3.6).substring(0,3)+" km/h");
                 spped_tv.setText(Double.toString(speed*3.6));
 

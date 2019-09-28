@@ -6,10 +6,6 @@
         <item android:drawable="@drawable/ic_arrows_up2" android:duration="400" />
 
         <item android:drawable="@drawable/ic_arrow_neutral" android:duration="400" />
-        <!--<item android:drawable="@drawable/ic_arrow_neutral" android:duration="400" />
-        <item android:drawable="@drawable/ic_arrows_up1" android:duration="400" />
-        <item android:drawable="@drawable/ic_arrows_up2" android:duration="400" />
-        <item android:drawable="@drawable/ic_arrow_neutral" android:duration="400" />
         <item android:drawable="@drawable/ic_arrow_neutral" android:duration="400" />
         <item android:drawable="@drawable/ic_arrows_up1" android:duration="400" />
         <item android:drawable="@drawable/ic_arrows_up2" android:duration="400" />
@@ -21,5 +17,9 @@
         <item android:drawable="@drawable/ic_arrow_neutral" android:duration="400" />
         <item android:drawable="@drawable/ic_arrows_up1" android:duration="400" />
         <item android:drawable="@drawable/ic_arrows_up2" android:duration="400" />
-        <item android:drawable="@drawable/ic_arrow_neutral" android:duration="400" /> -->
+        <item android:drawable="@drawable/ic_arrow_neutral" android:duration="400" />
+        <item android:drawable="@drawable/ic_arrow_neutral" android:duration="400" />
+        <item android:drawable="@drawable/ic_arrows_up1" android:duration="400" />
+        <item android:drawable="@drawable/ic_arrows_up2" android:duration="400" />
+        <item android:drawable="@drawable/ic_arrow_neutral" android:duration="400" />
     </animation-list>
