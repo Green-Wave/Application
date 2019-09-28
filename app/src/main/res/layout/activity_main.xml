@@ -8,9 +8,24 @@
 
     <org.osmdroid.views.MapView
         android:id="@+id/map"
-        android:layout_weight="0.5"
+        tilesource="Mapnik"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tilesource="Mapnik"/>
+        android:layout_weight="0.5"
+        tools:layout_editor_absoluteX="74dp"
+        tools:layout_editor_absoluteY="26dp">
+
+        <TextView
+            android:id="@+id/currentSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/animation" />
+    </org.osmdroid.views.MapView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

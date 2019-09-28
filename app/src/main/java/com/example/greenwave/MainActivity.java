@@ -6,10 +6,15 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.drawable.AnimationDrawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.JsonReader;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.osmdroid.api.IMapController;
@@ -39,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     public GeoPoint startPoint;
     public IMapController mapController;
     public int sekunden = 15;
+    final userData biker = new userData(null,null,51.953323, 7.641664,null);
+    AnimationDrawable Animation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,13 +132,17 @@ public class MainActivity extends AppCompatActivity {
 
         mapView.getOverlays().add(roadOverlay);
         mapView.invalidate();
+        ImageView rocketImage = (ImageView) findViewById(R.id.imageView);
+        rocketImage.setBackgroundResource(R.drawable.animation);
+        Animation = (AnimationDrawable) rocketImage.getBackground();
+
+        Animation.start();
 
     }
 
     public void getLocation() {
-        final userData biker = new userData(null,null,51.953323, 7.641664,null);
         final calculation_suggested_speed calculator = new calculation_suggested_speed(0, 0, 0);
-        final JsonReader getRequest = new JsonReader();
+        //final JsonReader getRequest = new JsonReader();
         new AppExecutors().mainThread().execute(new Runnable() {
             @Override
             public void run() {
@@ -162,10 +173,11 @@ public class MainActivity extends AppCompatActivity {
                                 calculator.setTime(sekunden);
                                 calculator.setSpeed(biker.getSpeed());
                                 calculator.evaluateSpeed();
-                                JsonReader.getIt();
+                                //JsonReader.getIt();
                             }
                         });
             }
         });
+
     }
 }
