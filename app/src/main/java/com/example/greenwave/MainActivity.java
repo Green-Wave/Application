@@ -9,9 +9,12 @@ import android.graphics.Path;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.osmdroid.api.IMapController;
@@ -26,8 +29,10 @@ import org.osmdroid.views.overlay.milestones.MilestonePathDisplayer;
 import org.osmdroid.views.overlay.milestones.MilestonePixelDistanceLister;
 
 import java.io.IOException;
+import java.security.PublicKey;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.nlopez.smartlocation.OnLocationUpdatedListener;
@@ -38,6 +43,8 @@ import util.AppExecutors;
 
 public class MainActivity extends AppCompatActivity {
     MapView mapView = null;
+    TextView timer_tv;
+    ImageView trafficLight_iv;
     public Marker userMarker;
     public Marker trafficLightMarker;
     public GeoPoint startPoint;
@@ -49,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     Handler handler = new Handler();
     Runnable runnable;
-    int delay = 3*1000;
+    int delay = 5*1000;   // 5 seconds
     int[] secondsDelay ={53,45,46,44,45,37,40,37,61,46,36,37,53,37};
 
     @Override
@@ -58,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getLocation();
+
 
         //load/initialize the osmdroid configuration, this can be done
         Context ctx = getApplicationContext();
@@ -71,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
         mapView.setTilesScaledToDpi(true);
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setMultiTouchControls(true);
+
+        //timer_tv = findViewById(R.id.tv_timer);
+        //trafficLight_iv = findViewById(R.id.iv_trafficLight);
 
         userMarker = new Marker(mapView);
         userMarker.setIcon(mapView.getContext().getResources().getDrawable(R.drawable.you_are_here));
@@ -157,19 +168,43 @@ public class MainActivity extends AppCompatActivity {
 
                 if(trafficlightGreen) {
                     trafficLightMarker.setIcon(mapView.getContext().getResources().getDrawable(R.drawable.a_rot));
+                    trafficLight_iv.setImageResource(R.drawable.a_rot);
                     trafficlightGreen = false;
                     mapView.invalidate();
+                    timer();
                 }
 
                 else {
                     trafficLightMarker.setIcon(mapView.getContext().getResources().getDrawable(R.drawable.a_green));
+                    trafficLight_iv.setImageResource(R.drawable.a_green);
                     trafficlightGreen = true;
                     mapView.invalidate();
+                    timer();
                 }
                 handler.postDelayed(runnable, delay);
             }
         }, delay);
 
+        Log.d("Mact", "timer1");
+
+        timer();
+
+    }
+
+    public void timer(){
+        Log.d("Mact", "timer2");
+
+        new CountDownTimer(5*1000, 1000) {
+            int timeDown = 5;
+            public void onTick(long millisUntilFinished) {
+                timer_tv.setText("00:0"+String.valueOf(timeDown--));
+                Log.d("Mact", "timer3");
+            }
+
+            public void onFinish() {
+                //_tv.setText("done!");
+            }
+        }.start();
     }
 
     public void getLocation() {
