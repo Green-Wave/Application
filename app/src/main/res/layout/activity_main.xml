@@ -8,9 +8,18 @@
 
     <org.osmdroid.views.MapView
         android:id="@+id/map"
-        android:layout_weight="0.5"
+        tilesource="Mapnik"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tilesource="Mapnik"/>
+        android:layout_height="729dp"
+        android:layout_weight="0.5"
+        tools:layout_editor_absoluteY="1dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SPEEEEEEEED"
+        tools:layout_editor_absoluteX="134dp"
+        tools:layout_editor_absoluteY="38dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
