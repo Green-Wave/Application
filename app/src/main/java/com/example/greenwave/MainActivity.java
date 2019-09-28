@@ -126,6 +126,14 @@ public class MainActivity extends AppCompatActivity {
         destinationMarker.setTitle("Destination");
 
 
+        //7.637563347816466
+        // 51.95056384502477
+
+
+
+
+
+
         ArrayList<GeoPoint> mRouteHigh = new ArrayList<>();
         mRouteHigh.add(new GeoPoint(51.950138981967264, 7.638094425201416));//
         mRouteHigh.add(new GeoPoint(51.95159705550733, 7.636149823665619));
