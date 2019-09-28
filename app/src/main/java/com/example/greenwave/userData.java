@@ -71,8 +71,6 @@ public class userData {
     }
 
     private double speed(double distance, double time){
-        System.out.println("distance"+distance);
-        System.out.println("time"+time);
         if(distance == 0 || distance ==0.0){
             speed = 0.0;
             return 0.0;

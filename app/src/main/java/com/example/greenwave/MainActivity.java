@@ -55,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
     public long sumSeconds = 0;
     private boolean speed_up =true;
     AnimationDrawable Animation;
+    public double bikeLat = 51.950138981967264;
+    public double bikeLon = 7.638094425201416;
+    public double tlLat = 51.950939109824986;
+    public double tlLon = 7.636930346488953;
+
     public boolean trafficlightGreen;
 
     Handler handler = new Handler();
@@ -91,9 +96,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         //user location
-        Marker bikeMarker = new Marker(mapView);
+        final Marker bikeMarker = new Marker(mapView);
         bikeMarker.setIcon(mapView.getContext().getResources().getDrawable(R.drawable.bike));
-        GeoPoint bikePoint = new GeoPoint(51.950138981967264, 7.638094425201416);
+        final GeoPoint bikePoint = new GeoPoint(bikeLat, bikeLon);
         bikeMarker.setPosition(bikePoint);
         mapView.getOverlays().add(bikeMarker);
         bikeMarker.setTitle("You are here!");
@@ -106,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         //trafficLight location
         trafficLightMarker = new Marker(mapView);
         trafficLightMarker.setIcon(mapView.getContext().getResources().getDrawable(R.drawable.a_rot));
-        GeoPoint trafficLightPoint = new GeoPoint(51.950939109824986, 7.636930346488953);
+        GeoPoint trafficLightPoint = new GeoPoint(tlLat, tlLon);
         trafficLightMarker.setPosition(trafficLightPoint);
         mapView.getOverlays().add(trafficLightMarker);
         trafficLightMarker.setTitle("Traffic light");
@@ -123,9 +128,6 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<GeoPoint> mRouteHigh = new ArrayList<>();
         mRouteHigh.add(new GeoPoint(51.950138981967264, 7.638094425201416));//
-        mRouteHigh.add(new GeoPoint(51.95057376395857, 7.637552618980408));
-        mRouteHigh.add(new GeoPoint(51.95091596583126, 7.637083232402801));
-        mRouteHigh.add(new GeoPoint(51.95096556008891, 7.636978626251221));
         mRouteHigh.add(new GeoPoint(51.95159705550733, 7.636149823665619));
 
 
@@ -179,7 +181,6 @@ public class MainActivity extends AppCompatActivity {
 
         handler.postDelayed( runnable = new Runnable() {
             public void run() {
-
                 if(trafficlightGreen) {
                     trafficLightMarker.setIcon(mapView.getContext().getResources().getDrawable(R.drawable.a_rot));
                     //trafficLight_iv.setImageResource(R.drawable.a_rot);
@@ -199,6 +200,32 @@ public class MainActivity extends AppCompatActivity {
             }
         }, delay);
 
+        Thread thread = new Thread() {
+            final userData biker = new userData(bikeLat,bikeLon,tlLon, tlLat,System.currentTimeMillis());
+            public double newBikeLat= bikeLat;
+            public double newBikeLon = bikeLon;
+            int i = 5;
+            @Override
+            public void run() {
+                try {
+                    while(true) {
+                        sleep(1000);
+                        double difLon = bikeLon - tlLon;
+                        double difLonOneMeter = difLon/120;
+                        double mRoute = bikeLat-tlLat;
+                        double mRouteOneMeter = mRoute/120;
+                        bikeMarker.setPosition(new GeoPoint(bikeLat-mRouteOneMeter*i,bikeLon-difLonOneMeter*i));
+                        biker.setLocation(bikeLat-mRouteOneMeter*i,bikeLon-difLonOneMeter*i, System.currentTimeMillis());
+                        System.out.println(Double.toString(biker.getSpeed()));
+                        i=i+5;
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        thread.start();
         Log.d("Mact", "timer1");
 
         timer();
@@ -222,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getLocation() {
-        final userData biker = new userData(null,null,51.953323, 7.641664,null);
+        final userData biker = new userData(null,null,51.950939109824986, 7.636930346488953,null);
         final calculation_suggested_speed calculator = new calculation_suggested_speed(0, 0, 0);
         new AppExecutors().mainThread().execute(new Runnable() {
             @Override

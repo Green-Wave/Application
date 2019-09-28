@@ -41,7 +41,6 @@ public class calculation_suggested_speed {
 
     public void evaluateSpeed(){
         theoretical_speed = distance/time;
-        System.out.println(theoretical_speed);
         if((theoretical_speed> 2 && !this.green) || (theoretical_speed <=8.3333 && this.green)) {
             // green
             if(this.green){
