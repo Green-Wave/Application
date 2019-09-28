@@ -20,7 +20,10 @@ public class calculation_suggested_speed {
         }
     }
 
-    public void setSpeed(double speed){
+    public void setSpeed(Double speed){
+        if(speed == null){
+            speed = 0.0;
+        }
         current_speed =speed;
     }
     public void setDist(double dist){

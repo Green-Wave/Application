@@ -6,7 +6,7 @@ public class userData {
     private Long oldTime = null;
     private Double nexTLLat = null;
     private Double nextTLLon = null;
-    private Double speed = 4.0;
+    private Double speed = 0.0;
 
     public userData(Double newLat, Double newLon, Double tlLat, Double tlLon, Long newTime){
         if(oldLat == null){
@@ -40,12 +40,13 @@ public class userData {
         if(oldLat != null && nexTLLat != null && oldLon != null && nextTLLon != null){
             return distance(oldLat,nexTLLat, oldLon,nextTLLon);
         }
-        System.out.println("oldLat"+oldLat);
-        System.out.println("nextTLLat"+nexTLLat);
         return 0;
     }
 
     public void setLocation(Double newLat, Double newLon, Long newTime){
+        if(oldTime  != null && oldLon  != null&& oldLat != null && newLon != null && newLon != null && newTime != null) {
+            speed = speed(distance(newLat, oldLat, newLon, oldLon), (newTime - oldTime) / 1000);
+        }
         oldLon = newLon;
         oldLat = newLat;
         oldTime = newTime;
@@ -69,7 +70,15 @@ public class userData {
         return distance;
     }
 
-    private static double speed(double distance, double time){
-        return distance/time;
+    private double speed(double distance, double time){
+        System.out.println("distance"+distance);
+        System.out.println("time"+time);
+        if(distance == 0 || distance ==0.0){
+            speed = 0.0;
+            return 0.0;
+        }else{
+            speed = distance/time;
+            return distance/time;
+        }
     }
 }
