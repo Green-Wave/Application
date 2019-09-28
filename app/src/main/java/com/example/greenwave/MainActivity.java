@@ -7,7 +7,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -24,6 +26,7 @@ import org.osmdroid.views.overlay.milestones.MilestonePathDisplayer;
 import org.osmdroid.views.overlay.milestones.MilestonePixelDistanceLister;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,9 +39,17 @@ import util.AppExecutors;
 public class MainActivity extends AppCompatActivity {
     MapView mapView = null;
     public Marker userMarker;
+    public Marker trafficLightMarker;
     public GeoPoint startPoint;
     public IMapController mapController;
     public int sekunden = 15;
+    public long sumSeconds = 0;
+
+    public boolean trafficlightGreen;
+
+    Handler handler = new Handler();
+    Runnable runnable;
+    int delay = 3*1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,12 +89,13 @@ public class MainActivity extends AppCompatActivity {
         mapController.setZoom(15.5);
 
         //trafficLight location
-        Marker trafficLightMarker = new Marker(mapView);
+        trafficLightMarker = new Marker(mapView);
         trafficLightMarker.setIcon(mapView.getContext().getResources().getDrawable(R.drawable.a_rot));
         GeoPoint trafficLightPoint = new GeoPoint(51.953323, 7.641664);
         trafficLightMarker.setPosition(trafficLightPoint);
         mapView.getOverlays().add(trafficLightMarker);
         trafficLightMarker.setTitle("Traffic light");
+        trafficlightGreen = false;
 
         //destination location
         Marker destinationMarker = new Marker(mapView);
@@ -126,12 +138,39 @@ public class MainActivity extends AppCompatActivity {
         mapView.getOverlays().add(roadOverlay);
         mapView.invalidate();
 
+
+        //update traffic light status
+        //updateTraffic();
+        //new MyTask().execute("1000");
+
+
+/*        final Handler handler = new Handler();
+        final Runnable runnable;
+        int delay = 15*1000;*/
+
+        handler.postDelayed( runnable = new Runnable() {
+            public void run() {
+
+                if(trafficlightGreen) {
+                    trafficLightMarker.setIcon(mapView.getContext().getResources().getDrawable(R.drawable.a_rot));
+                    trafficlightGreen = false;
+                    mapView.invalidate();
+                }
+
+                else {
+                    trafficLightMarker.setIcon(mapView.getContext().getResources().getDrawable(R.drawable.a_green));
+                    trafficlightGreen = true;
+                    mapView.invalidate();
+                }
+                handler.postDelayed(runnable, delay);
+            }
+        }, delay);
+
     }
 
     public void getLocation() {
         final userData biker = new userData(null,null,51.953323, 7.641664,null);
         final calculation_suggested_speed calculator = new calculation_suggested_speed(0, 0, 0);
-        final JsonReader getRequest = new JsonReader();
         new AppExecutors().mainThread().execute(new Runnable() {
             @Override
             public void run() {
@@ -154,15 +193,14 @@ public class MainActivity extends AppCompatActivity {
                                 userMarker.setPosition(startPoint);
                                 mapView.getOverlays().add(userMarker);
                                 userMarker.setTitle("You are here!");
-                                mapController.setCenter(startPoint);
-                                mapController.setZoom(15.5);
+                                //mapController.setCenter(startPoint);
+                                //mapController.setZoom(15.5);
                                 mapView.invalidate();
                                 biker.setLocation(startPoint.getLatitude(),startPoint.getLongitude(), System.currentTimeMillis());
                                 calculator.setDist(biker.getDistanceToTL());
                                 calculator.setTime(sekunden);
                                 calculator.setSpeed(biker.getSpeed());
                                 calculator.evaluateSpeed();
-                                JsonReader.getIt();
                             }
                         });
             }
