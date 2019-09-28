@@ -215,7 +215,11 @@ public class MainActivity extends AppCompatActivity {
             final userData biker = new userData(bikeLat,bikeLon,tlLon, tlLat,System.currentTimeMillis());
             public double newBikeLat= bikeLat;
             public double newBikeLon = bikeLon;
-            int i = 5;
+            double i = 5;
+            double j = 5;
+            int k = 1;
+            double[] l ={0.2,0.3,0.4};
+            int lRunner = 0;
             @Override
             public void run() {
                 try {
@@ -230,7 +234,19 @@ public class MainActivity extends AppCompatActivity {
                         System.out.println(Double.toString(biker.getSpeed()));
                         //spped_tv.setText(Double.toString(biker.getSpeed()));
                         speed = biker.getSpeed();
-                        i=i+5;
+                        i = i+j;
+                        j = j - k *l[lRunner];
+                        if(k==1){
+                            k=-1;
+                        }else{
+                            k=1;
+                        }
+                        if(lRunner == 2){
+                            lRunner= 0;
+                        }else{
+                            lRunner++;
+                        }
+                        System.out.println(i);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
