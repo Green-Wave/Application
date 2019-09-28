@@ -5,10 +5,14 @@ public class calculation_suggested_speed {
     private double theoretical_speed;
     private double suggested_speed;
     private boolean green;
+    private double distance;
+    private double time;
     private String suggestion;
 
-    public calculation_suggested_speed(double distance, double current_speed, double time){
+    public calculation_suggested_speed(double dist, double current_speed, double tim){
         this.current_speed = current_speed;
+        setDist(dist);
+        setTime(tim);
         theoretical_speed = distance/time;
         this.evaluateSpeed();
         if(time>0){
@@ -16,8 +20,26 @@ public class calculation_suggested_speed {
         }
     }
 
+    public void setSpeed(double speed){
+        current_speed =speed;
+    }
+    public void setDist(double dist){
+        distance =dist;
+    }
+    public void setTime(double tim){
+        time =tim;
+        if(time >0) {
+            this.green = true;
+        }else{
+            this.green = false;
+            time = time * (-1);
+        }
+    }
+
     public void evaluateSpeed(){
-        if(theoretical_speed> 7 && theoretical_speed <=30) {
+        theoretical_speed = distance/time;
+        System.out.println(theoretical_speed);
+        if((theoretical_speed> 2 && !this.green) || (theoretical_speed <=8.3333 && this.green)) {
             // green
             if(this.green){
                 if (theoretical_speed > current_speed) {

@@ -2,7 +2,6 @@ package com.example.greenwave;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.greenwave.userData;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,6 +11,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import org.json.JSONException;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -23,6 +23,7 @@ import org.osmdroid.views.overlay.milestones.MilestoneManager;
 import org.osmdroid.views.overlay.milestones.MilestonePathDisplayer;
 import org.osmdroid.views.overlay.milestones.MilestonePixelDistanceLister;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     public Marker userMarker;
     public GeoPoint startPoint;
     public IMapController mapController;
+    public int sekunden = 15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +130,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void getLocation() {
         final userData biker = new userData(null,null,51.953323, 7.641664,null);
+        final calculation_suggested_speed calculator = new calculation_suggested_speed(0, 0, 0);
+        final JsonReader getRequest = new JsonReader();
         new AppExecutors().mainThread().execute(new Runnable() {
             @Override
             public void run() {
@@ -144,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
                         // .continuous()
                         .config(builder.build())
                         .start(new OnLocationUpdatedListener() {
-                            @Override
                             public void onLocationUpdated(Location location) {
                                 Log.d("MapFragment222", "invoked3");
                                 startPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
@@ -155,6 +158,11 @@ public class MainActivity extends AppCompatActivity {
                                 mapController.setZoom(15.5);
                                 mapView.invalidate();
                                 biker.setLocation(startPoint.getLatitude(),startPoint.getLongitude(), System.currentTimeMillis());
+                                calculator.setDist(biker.getDistanceToTL());
+                                calculator.setTime(sekunden);
+                                calculator.setSpeed(biker.getSpeed());
+                                calculator.evaluateSpeed();
+                                JsonReader.getIt();
                             }
                         });
             }

@@ -1,10 +1,12 @@
 package com.example.greenwave;
 
 public class userData {
-    private Double oldLat,oldLon;
-    private Long oldTime;
-    private Double nexTLLat, nextTLLon;
-    private double speed;
+    private Double oldLat = null;
+    private Double oldLon = null;
+    private Long oldTime = null;
+    private Double nexTLLat = null;
+    private Double nextTLLon = null;
+    private Double speed = 4.0;
 
     public userData(Double newLat, Double newLon, Double tlLat, Double tlLon, Long newTime){
         if(oldLat == null){
@@ -22,12 +24,25 @@ public class userData {
         if(nextTLLon == null){
             nextTLLon = tlLon;
         }
-        speed = speed(distance(newLat,oldLat, newLon,oldLon), (newTime-oldTime)/1000);
+        /*speed = speed(distance(newLat,oldLat, newLon,oldLon), (newTime-oldTime)/1000);
         double distanceToTL = distance(newLat,tlLat, nexTLLat,nextTLLon);
-        double timeToTL = speed / distanceToTL;
+        double timeToTL = speed / distanceToTL;*/
         oldLon = newLon;
         oldLat = newLat;
         oldTime = newTime;
+    }
+
+    public double getSpeed(){
+        return speed;
+    }
+
+    public double getDistanceToTL(){
+        if(oldLat != null && nexTLLat != null && oldLon != null && nextTLLon != null){
+            return distance(oldLat,nexTLLat, oldLon,nextTLLon);
+        }
+        System.out.println("oldLat"+oldLat);
+        System.out.println("nextTLLat"+nexTLLat);
+        return 0;
     }
 
     public void setLocation(Double newLat, Double newLon, Long newTime){
