@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
         mapView.getOverlays().add(roadOverlay);
         mapView.invalidate();
         ImageView arrowsImage= null;
-        if(speed_up){
+        if(!speed_up){
             arrowsImage = (ImageView) findViewById(R.id.imageView);
             arrowsImage.setBackgroundResource(R.drawable.animation);
         }else{

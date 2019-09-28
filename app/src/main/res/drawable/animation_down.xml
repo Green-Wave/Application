@@ -5,4 +5,5 @@
     <item android:drawable="@drawable/ic_arrows_down" android:duration="400" />
     <item android:drawable="@drawable/ic_arrows_down2" android:duration="400" />
     <item android:drawable="@drawable/ic_arrow_neutral" android:duration="400" />
+
 </animation-list>
