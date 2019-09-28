@@ -6,21 +6,12 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.drawable.AnimationDrawable;
 import android.location.Location;
-<<<<<<< HEAD
 import android.os.AsyncTask;
-=======
-import android.media.Image;
->>>>>>> Animation
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.util.JsonReader;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import org.json.JSONException;
 import org.osmdroid.api.IMapController;
@@ -52,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     public GeoPoint startPoint;
     public IMapController mapController;
     public int sekunden = 15;
-<<<<<<< HEAD
     public long sumSeconds = 0;
 
     public boolean trafficlightGreen;
@@ -60,11 +50,6 @@ public class MainActivity extends AppCompatActivity {
     Handler handler = new Handler();
     Runnable runnable;
     int delay = 3*1000;
-=======
-    private boolean speed_up =true;
-    final userData biker = new userData(null,null,51.953323, 7.641664,null);
-    AnimationDrawable Animation;
->>>>>>> Animation
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,17 +137,6 @@ public class MainActivity extends AppCompatActivity {
 
         mapView.getOverlays().add(roadOverlay);
         mapView.invalidate();
-        ImageView arrowsImage= null;
-        if(!speed_up){
-            arrowsImage = (ImageView) findViewById(R.id.imageView);
-            arrowsImage.setBackgroundResource(R.drawable.animation);
-        }else{
-            arrowsImage = (ImageView) findViewById(R.id.imageView_down);
-            arrowsImage.setBackgroundResource(R.drawable.animation_down);
-        }
-
-        Animation = (AnimationDrawable) arrowsImage.getBackground();
-        Animation.start();
 
 
         //update traffic light status
@@ -195,11 +169,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getLocation() {
+        final userData biker = new userData(null,null,51.953323, 7.641664,null);
         final calculation_suggested_speed calculator = new calculation_suggested_speed(0, 0, 0);
-<<<<<<< HEAD
-=======
-        //final JsonReader getRequest = new JsonReader();
->>>>>>> Animation
         new AppExecutors().mainThread().execute(new Runnable() {
             @Override
             public void run() {
@@ -230,15 +201,10 @@ public class MainActivity extends AppCompatActivity {
                                 calculator.setTime(sekunden);
                                 calculator.setSpeed(biker.getSpeed());
                                 calculator.evaluateSpeed();
-<<<<<<< HEAD
-=======
-                                //JsonReader.getIt();
->>>>>>> Animation
                             }
                         });
             }
         });
-
     }
 }
 

@@ -10,7 +10,6 @@
         android:id="@+id/map"
         tilesource="Mapnik"
         android:layout_width="match_parent"
-<<<<<<< HEAD
         android:layout_height="729dp"
         android:layout_weight="0.5"
         tools:layout_editor_absoluteY="1dp" />
@@ -22,73 +21,5 @@
         android:text="SPEEEEEEEED"
         tools:layout_editor_absoluteX="134dp"
         tools:layout_editor_absoluteY="38dp" />
-=======
-        android:layout_height="match_parent"
-        android:layout_weight="0.5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            app:srcCompat="@drawable/animation" />
-
-        <ImageView
-            android:id="@+id/imageView_down"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            app:srcCompat="@drawable/animation_down" />
-    </org.osmdroid.views.MapView>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="120dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="280dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:background="#48FFFFFF"
-        android:text="XX"
-        android:textAlignment="center"
-        android:textColor="#3c81a6"
-        android:textSize="75sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/ampel_in"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:background="#48FFFFFF"
-        android:text="Nächste Ampel in:"
-        android:textAlignment="center"
-        android:textColor="#3c81a6"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.303"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TextView
-        android:id="@+id/ampel_speed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="308dp"
-        android:layout_marginLeft="308dp"
-        android:layout_marginTop="28dp"
-        android:background="#48FFFFFF"
-        android:text="XX"
-        android:textAlignment="center"
-        android:textColor="#3c81a6"
-        android:textSize="50sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
->>>>>>> Animation
 
 </androidx.constraintlayout.widget.ConstraintLayout>
