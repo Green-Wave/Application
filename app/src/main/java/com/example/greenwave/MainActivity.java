@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     Handler handler = new Handler();
     Runnable runnable;
     int delay = 3*1000;
+    int[] secondsDelay ={53,45,46,44,45,37,40,37,61,46,36,37,53,37};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         //user location
         Marker bikeMarker = new Marker(mapView);
         bikeMarker.setIcon(mapView.getContext().getResources().getDrawable(R.drawable.bike));
-        GeoPoint bikePoint = new GeoPoint(51.953384, 7.642753);
+        GeoPoint bikePoint = new GeoPoint(51.950138981967264, 7.638094425201416);
         bikeMarker.setPosition(bikePoint);
         mapView.getOverlays().add(bikeMarker);
         bikeMarker.setTitle("You are here!");
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         //trafficLight location
         trafficLightMarker = new Marker(mapView);
         trafficLightMarker.setIcon(mapView.getContext().getResources().getDrawable(R.drawable.a_rot));
-        GeoPoint trafficLightPoint = new GeoPoint(51.953323, 7.641664);
+        GeoPoint trafficLightPoint = new GeoPoint(51.950939109824986, 7.636930346488953);
         trafficLightMarker.setPosition(trafficLightPoint);
         mapView.getOverlays().add(trafficLightMarker);
         trafficLightMarker.setTitle("Traffic light");
@@ -100,16 +101,19 @@ public class MainActivity extends AppCompatActivity {
         //destination location
         Marker destinationMarker = new Marker(mapView);
         destinationMarker.setIcon(mapView.getContext().getResources().getDrawable(R.drawable.destinationflag));
-        GeoPoint destinationMarkerPoint = new GeoPoint(51.953258, 7.640949);
+        GeoPoint destinationMarkerPoint = new GeoPoint(51.95159705550733, 7.636149823665619);
         destinationMarker.setPosition(destinationMarkerPoint);
         mapView.getOverlays().add(destinationMarker);
         destinationMarker.setTitle("Destination");
 
 
         ArrayList<GeoPoint> mRouteHigh = new ArrayList<>();
-        mRouteHigh.add(new GeoPoint(51.953384, 7.642753));//
-        mRouteHigh.add(new GeoPoint(51.953323, 7.641664));
-        mRouteHigh.add(new GeoPoint(51.953258, 7.640949));
+        mRouteHigh.add(new GeoPoint(51.950138981967264, 7.638094425201416));//
+        mRouteHigh.add(new GeoPoint(51.95057376395857, 7.637552618980408));
+        mRouteHigh.add(new GeoPoint(51.95091596583126, 7.637083232402801));
+        mRouteHigh.add(new GeoPoint(51.95096556008891, 7.636978626251221));
+        mRouteHigh.add(new GeoPoint(51.95159705550733, 7.636149823665619));
+
 
         Polyline roadOverlay = new Polyline();
         roadOverlay.setWidth(30);
@@ -144,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         //new MyTask().execute("1000");
 
 
-/*        final Handler handler = new Handler();
+        /*final Handler handler = new Handler();
         final Runnable runnable;
         int delay = 15*1000;*/
 
