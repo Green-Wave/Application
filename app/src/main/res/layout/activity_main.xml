@@ -25,8 +25,8 @@
     <org.osmdroid.views.MapView
         android:id="@+id/map"
         tilesource="Mapnik"
-        android:layout_width="match_parent"
-        android:layout_height="729dp"
+        android:layout_width="418dp"
+        android:layout_height="674dp"
         android:layout_weight="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
