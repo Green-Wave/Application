@@ -23,9 +23,15 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             app:srcCompat="@drawable/animation" />
+
+        <ImageView
+            android:id="@+id/imageView_down"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:srcCompat="@drawable/animation_down" />
     </org.osmdroid.views.MapView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

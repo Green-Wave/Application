@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.drawable.AnimationDrawable;
 import android.location.Location;
+import android.media.Image;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.JsonReader;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     public GeoPoint startPoint;
     public IMapController mapController;
     public int sekunden = 15;
+    private boolean speed_up =true;
     final userData biker = new userData(null,null,51.953323, 7.641664,null);
     AnimationDrawable Animation;
 
@@ -132,10 +134,16 @@ public class MainActivity extends AppCompatActivity {
 
         mapView.getOverlays().add(roadOverlay);
         mapView.invalidate();
-        ImageView rocketImage = (ImageView) findViewById(R.id.imageView);
-        rocketImage.setBackgroundResource(R.drawable.animation);
-        Animation = (AnimationDrawable) rocketImage.getBackground();
+        ImageView arrowsImage= null;
+        if(speed_up){
+            arrowsImage = (ImageView) findViewById(R.id.imageView);
+            arrowsImage.setBackgroundResource(R.drawable.animation);
+        }else{
+            arrowsImage = (ImageView) findViewById(R.id.imageView_down);
+            arrowsImage.setBackgroundResource(R.drawable.animation_down);
+        }
 
+        Animation = (AnimationDrawable) arrowsImage.getBackground();
         Animation.start();
 
     }
