@@ -44,7 +44,7 @@ import util.AppExecutors;
 public class MainActivity extends AppCompatActivity {
     MapView mapView = null;
     TextView timer_tv;
-    ImageView trafficLight_iv;
+    //ImageView trafficLight_iv;
     public Marker userMarker;
     public Marker trafficLightMarker;
     public GeoPoint startPoint;
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setMultiTouchControls(true);
 
-        //timer_tv = findViewById(R.id.tv_timer);
+        timer_tv = findViewById(R.id.tv_timer);
         //trafficLight_iv = findViewById(R.id.iv_trafficLight);
 
         userMarker = new Marker(mapView);
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(trafficlightGreen) {
                     trafficLightMarker.setIcon(mapView.getContext().getResources().getDrawable(R.drawable.a_rot));
-                    trafficLight_iv.setImageResource(R.drawable.a_rot);
+                    //trafficLight_iv.setImageResource(R.drawable.a_rot);
                     trafficlightGreen = false;
                     mapView.invalidate();
                     timer();
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
 
                 else {
                     trafficLightMarker.setIcon(mapView.getContext().getResources().getDrawable(R.drawable.a_green));
-                    trafficLight_iv.setImageResource(R.drawable.a_green);
+                    //trafficLight_iv.setImageResource(R.drawable.a_green);
                     trafficlightGreen = true;
                     mapView.invalidate();
                     timer();
